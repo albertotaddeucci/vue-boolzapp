@@ -169,7 +169,27 @@ createApp({
             }
         ],
 
-        chatIndex: 0
+        chatIndex: 0,
+
+        messageToSend: "",
+
+        myMessage: {
+                        
+            date: 'xxx',
+            message: '',
+            status: 'sent'
+                
+            
+
+        },
+
+        answer: {
+
+            date: 'xxx',
+            message: 'Ok',
+            status: 'Received'
+
+        }
 
       
     }
@@ -177,6 +197,25 @@ createApp({
   methods: {
     selectChat(index){
         this.chatIndex = index
+    },
+    riceveAnswer(){
+
+        this.contacts[this.chatIndex].messages.push({...this.answer})
+
+        
+    },
+    sendMessage(messageToSend){
+
+        this.myMessage.message = messageToSend
+
+        this.contacts[this.chatIndex].messages.push({...this.myMessage})
+
+        this.messageToSend = ""
+
+        setTimeout(this.riceveAnswer,1000)
+
+        
+
     }
   },
   

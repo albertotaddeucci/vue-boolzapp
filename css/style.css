@@ -4,16 +4,27 @@ body{
     font-family: sans-serif;
 }
 
+/* --------------------------------- colors --------------------------------- */
+
 .my_bg{
-    background-color: #bec3c9;
+    background-color: #dadbd4;
 }
 
-/* general structure */
-
-.my_height{
-    height: calc(100vh - 6rem);
+.my_bg_primary{
+    background-color: #eaeaea;
 }
 
+.my_bg_secondary{
+    background-color: #8edafc;
+}
+
+.my_color_primary{
+    color: #b1b1b1 ;
+
+}
+
+
+/* background green bar */
 #accent-nav{
     position: absolute;
     top: 0;
@@ -26,6 +37,13 @@ body{
     background-color: #009688;
 }
 
+/* general structure */
+
+.my_height{
+    height: calc(100vh - 6rem);
+}
+
+/* images */
 img{
     width: 100%;
     height: 50px;
@@ -36,15 +54,14 @@ img{
     height: 70px;
 }
 
+/* ---------------------------------- aside --------------------------------- */
 
-.my_bg_primary{
-    background-color: #eaeaea;
+.search_width{
+    width: 15%;
+    
 }
 
-.my_color_primary{
-    color: #b1b1b1 ;
 
-}
 
 .my_small_text{
     font-size: 12px;
@@ -53,7 +70,7 @@ img{
 
 
 
-
+/* -------------------------------- main chat ------------------------------- */
 
 #main-chat{
     background-image: url(../img/mine.jpg);

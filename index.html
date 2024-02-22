@@ -32,6 +32,7 @@
             <!-- ----------------------------------------------------------------------- -->
             <div id="aside" class="col-5 my_height">
 
+                <!-- header -->
                 <div class="row justify-content-between py-2 my_bg_primary align-items-center">
                     <div class="col-auto">
                         <div class="row justify-content-start align-items-center ">
@@ -53,13 +54,30 @@
                     </div>
                 </div>
 
+                <!-- blu section -->
+                <div class="row py-3 my_bg_secondary align-items-center ">
+                    <div class="col-3 text-center m-auto">
+                        
+                        <i class="fa-solid fa-bell-slash fs-4 p-4 bg-white rounded-circle "></i>
+                        
+                    </div>
+                    <div class="col-9 p-0">
+                        <div>Ricevi notifiche di nuovi messaggi</div>
+                        <a href="">Attiva notifiche desktop</a>
+
+                    </div>
+
+                </div>
+
+                <!-- input -->
                 <div class="row p-2 my_bg_primary">
                     <div class="input-group p-0">
-                        <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass my_color_primary"></i></span>
+                        <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass m-auto my_color_primary"></i></span>
                         <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
 
+                <!-- chats list -->
                 <div id="chats" class="row align-content-start overflow-auto h-100">
                     <div v-for="(contact,index) in contacts" 
                          class="row justify-content-between py-2 m-0"
@@ -95,77 +113,82 @@
             <!-- ----------------------------------------------------------------------- -->
             <!--                                Main                                     -->
             <!-- ----------------------------------------------------------------------- -->
-            <div class="col-7 my_height"
+            <div class="col-7 my_height p-0"
             id="main" 
             v-for="(contact,index) in contacts" 
             v-show="index==chatIndex"          
             >
-            <div class="d-flex flex-column my_height">
+                <div class="d-flex flex-column my_height ">
 
-                <!-- header -->
-                <div class="row justify-content-between align-items-center p-2 bg-body-secondary">
-                    <div class="col-auto">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="img/avatar_2.jpg"  alt="">
-                            </div>
-                            <div class="col-auto">
-                                <div class="row">
-                                    <span class="info-name">{{contact.name}}</span>
-                                    <span class="my_small_text">Ultimo accesso</span>
-    
+                    <!-- header -->
+                    <div class="row justify-content-between align-items-center p-2 my_bg_primary">
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <img :src="contact.avatar"  alt="">
                                 </div>
-    
-                            </div>
-    
-                        </div>                        
-                    </div>
-    
-                    <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
-                        <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
-                        <i class="fa-solid fa-paperclip"></i>
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-    
-                    </div>
-                </div>
-    
-                <!-- chat -->
-                <div id="main-chat"
-                class="row h-100 overflow-auto flex-column p-5"                 
-                >
-                    <div                                
-                    v-for="message in contact.messages"               
-                    :class="message.status=='sent'? 'sent' : 'received'"
-                    class="p-3 mb-2 rounded-3"
-                    >
-                    {{message.message}}
-                        
-
-                    </div>
-    
-                </div>
-    
-    
-                <div class="row my_bg_primary p-3 align-items-center ">
-                    <div class="col-auto">
-                        <i class="fa-regular fa-face-smile fs-4"></i>
-                    </div>
-                    <div class="col-auto flex-grow-1 ">
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="addon-wrapping">
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <span class="info-name">{{contact.name}}</span>
+                                        <span class="my_small_text">Ultimo accesso</span>
+        
+                                    </div>
+        
+                                </div>
+        
+                            </div>                        
                         </div>
-    
+        
+                        <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
+                            <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
+                            <i class="fa-solid fa-paperclip"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+        
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fa-solid fa-microphone fs-4"></i>
+        
+                    <!-- chat -->
+                    <div id="main-chat"
+                    class="d-flex flex-grow-1 overflow-auto flex-column p-5"                 
+                    >
+                        <div                                
+                        v-for="message in contact.messages"               
+                        :class="message.status=='sent'? 'sent' : 'received'"
+                        class="col-12 p-3 mb-2 rounded-3"
+                        >
+                        {{message.message}}
+                            
+
+                        </div>
+        
                     </div>
+        
+        
+                    <!-- input  -->
+                    <div class="row my_bg_primary m-0 p-3 align-items-center ">
+                        <div class="col-auto">
+                            <i class="fa-regular fa-face-smile fs-4"></i>
+                        </div>
+                        <div class="col-auto flex-grow-1 ">
+                            <div class="input-group flex-nowrap">
+                                <input
+                                v-model="messageToSend"
+                                type="text"
+                                class="form-control"
+                                placeholder="Scrivi un messaggio"
+                                @keyup.enter="sendMessage(messageToSend)"
+                                >
+                            </div>
+        
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-microphone fs-4"></i>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-        
-        
-        
-        
-        
+            
+            
             </div>
 
         </div>
