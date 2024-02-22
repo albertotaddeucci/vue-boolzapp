@@ -55,7 +55,10 @@
                 </div>
 
                 <div id="chats" class="row align-content-start overflow-auto ">
-                    <div v-for="contact in contacts" class="row justify-content-between py-2 m-0">
+                    <div v-for="(contact,index) in contacts" 
+                         class="row justify-content-between py-2 m-0"
+                         @click="selectChat(index)"
+                    >
                         <div class="col-auto">
                             <div class="row">
                                 <div class="col-auto">
@@ -86,7 +89,8 @@
 
             <div class="col-7  ">
 
-                <div id="main" class="row flex-column h-100">
+                <div id="main" v-for="(contact,index) in contacts" 
+                    v-show="index==chatIndex" class="row flex-column h-100">
                     <div class="row justify-content-between align-items-center  p-2 bg-body-secondary m-0">
                         <div class="col-auto">
                             <div class="row">
@@ -95,7 +99,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <div class="row">
-                                        <span class="info-name">Mario</span>
+                                        <span class="info-name">{{contact.name}}</span>
                                         <span class="my_small_text">Ultimo accesso</span>
     
                                     </div>
@@ -115,10 +119,10 @@
 
                     <div id="main-chat" class="row m-0 flex-grow-1 align-content-start p-5">
                         <div class="row justify-content-end m-0 p-0">
-                            <div class="col-4 bg-success p-3 rounded-3 ">ciao!</div>
+                            <div class="col-4 bg-success p-3 rounded-3 "></div>
                         </div>
                         <div class="row justify-content-start m-0 p-0">
-                            <div class="col-4 bg-body-secondary p-3 rounded-3 ">ciao!</div>
+                            <div class="col-4 bg-body-secondary p-3 rounded-3 "></div>
                         </div>
                     </div>
 

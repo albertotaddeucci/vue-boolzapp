@@ -169,9 +169,16 @@ createApp({
             }
         ],
 
+        chatIndex: 1
+
       
     }
   },
+  methods: {
+    selectChat(index){
+        this.chatIndex = index
+    }
+  }
 //   mounted(){
 //     this.contacts.forEach(element => {
 //         const newAvatar = element.avatar
