@@ -169,7 +169,7 @@ createApp({
             }
         ],
 
-        chatIndex: 1
+        chatIndex: 0
 
       
     }
@@ -179,16 +179,5 @@ createApp({
         this.chatIndex = index
     }
   },
-//   mounted() {
-//     this.contacts.forEach(contact => {
-//       contact.messages.forEach(message => {
-//         if (message.status=="active"){
-
-//         }
-//       });
-//     });
-//   }
-  
-
   
 }).mount('#app')

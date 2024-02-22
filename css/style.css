@@ -10,6 +10,10 @@ body{
 
 /* general structure */
 
+.my_height{
+    height: calc(100vh - 6rem);
+}
+
 #accent-nav{
     position: absolute;
     top: 0;
@@ -56,9 +60,16 @@ img{
 }
 
 .sent{
-    background-color: green;
+    background-color: #d5f9ba;
+    align-self: flex-end;
+    width: 30ch;
+    
+    
 }
 
 .received{
     background-color: white;
+    align-self: flex-start;
+    width: 30ch;
+    
 }
