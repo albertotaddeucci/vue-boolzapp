@@ -37,11 +37,17 @@ img{
     background-color: #eaeaea;
 }
 
-.chats-last-ms{
-    font-size: 12px;
-    color: #bec3c9;
+.my_color_primary{
+    color: #b1b1b1 ;
 
 }
+
+.my_small_text{
+    font-size: 12px;
+    color: #bec3c9;
+}
+
+
 
 
 
