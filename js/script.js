@@ -178,16 +178,17 @@ createApp({
     selectChat(index){
         this.chatIndex = index
     }
-  }
-//   mounted(){
-//     this.contacts.forEach(element => {
-//         const newAvatar = element.avatar
-//     //    console.log(newAvatar.substring(0,newAvatar.length-3) + "jpg")
-//         element.avatar = newAvatar.substring(0,newAvatar.length-3) + "jpg"
-//         return element.avatar
-        
-         
-//     });
+  },
+//   mounted() {
+//     this.contacts.forEach(contact => {
+//       contact.messages.forEach(message => {
+//         if (message.status=="active"){
 
+//         }
+//       });
+//     });
 //   }
+  
+
+  
 }).mount('#app')

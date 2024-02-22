@@ -54,3 +54,11 @@ img{
 #main-chat{
     background-image: url(../img/mine.jpg);
 }
+
+.sent{
+    background-color: green;
+}
+
+.received{
+    background-color: white;
+}
