@@ -14,15 +14,17 @@
     <!-- ----------------------------- fontawesome ----------------------------- -->
     <script src="https://kit.fontawesome.com/e2fdc6941e.js" crossorigin="anonymous"></script>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="my_bg">
 
     <div id="accent-nav">
     </div>
 
-    <div class="container vh-100 py-5 ">
+    <div id="app" class="container vh-100 py-5 ">
+        
         <div class="row bg-white h-100   ">
-            <div id="aside" class="col-4  ">
+            <div id="aside" class="col-5  ">
 
                 <div class="row justify-content-between py-2 my_bg_primary align-items-center">
                     <div class="col-auto">
@@ -53,16 +55,16 @@
                 </div>
 
                 <div id="chats" class="row align-content-start overflow-auto ">
-                    <div class="row justify-content-between py-2 m-0">
+                    <div v-for="contact in contacts" class="row justify-content-between py-2 m-0">
                         <div class="col-auto">
                             <div class="row">
                                 <div class="col-auto">
-                                    <img src="img/avatar_2.jpg"  alt="">
+                                    <img :src="contact.avatar"  alt="">
     
                                 </div>
                                 <div class="col-auto">
                                     <div class="row">
-                                        <div>Mario</div>
+                                        <div>{{contact.name}}</div>
                                         <div class="my_small_text">Ultimo messaggio inviato</div>
                                     </div>
     
@@ -82,7 +84,7 @@
             </div>
 
 
-            <div class="col-8  ">
+            <div class="col-7  ">
 
                 <div id="main" class="row flex-column h-100">
                     <div class="row justify-content-between align-items-center  p-2 bg-body-secondary m-0">
@@ -146,7 +148,7 @@
 
 
     <!-- --------------------------------- JS ---------------------------------- -->
-    <script src=""></script>
+    <script src="js/script.js"></script>
 
     <!-- ------------------------------ bootstrap ------------------------------ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
