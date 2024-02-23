@@ -139,3 +139,128 @@ img{
 .pop-request li:not(:hover){
     filter: opacity(0.4)
 }
+
+
+/* -------------------------------- Dark Mode ------------------------------- */
+
+#dark-mode{
+    height: 30px;
+    width: 60px;
+    border-radius: 30px;
+    background-color: red;
+    position: relative;
+    
+}
+.button-dark{
+    position: absolute;
+    top: 0;
+    left: 0px;    
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    color: black;
+}
+
+
+.animation{
+    animation-name: switch;
+    animation-duration: 0.2s;
+    animation-timing-function: 2s;
+    animation-fill-mode: both;
+}
+
+.animation-reverse{
+    animation-name: switch-reverse;
+    animation-duration: 0.2s;
+    animation-timing-function: 2s;
+    animation-fill-mode: both;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes switch{
+
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+    
+    100% {
+        top: 0px;
+        left: 30px;
+    }
+
+}
+
+@keyframes switch-reverse{
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+    
+    100% {
+        top: 0px;
+        left: 30px;
+    }
+   
+    
+
+}
+
+
+
+.dark{
+    color: white !important;
+    
+}
+
+.dark #main-chat{
+    filter: invert();
+}
+
+.dark .sent {
+    filter: invert();
+    background-color: #7077A1;
+    color: black;
+}
+
+.dark .received{
+    filter: invert();
+    background-color: #F6B17A;
+    color: black;
+}
+
+.dark .my_bg{
+    background-color: #dadbd4;
+}
+
+.dark .my_bg_primary{
+    background-color: #2D3250;
+}
+
+.dark .my_bg_secondary{
+    background-color: #8edafc;
+}
+
+.dark .my_color_primary{
+    color: #b1b1b1 ;
+
+}
+
+.dark #chats{
+    background-color: #2D3250;
+}
+
+.dark .active{
+    background-color: #424769;
+}
+
+.dark #activate{
+    color: black;
+}
+
+
+.dark #dark-mode{
+    background-color: green;
+    
+}

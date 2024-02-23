@@ -171,6 +171,8 @@ createApp({
 
         popUp: true,
 
+        darkMode: false,
+
         
         //search contact
         inputSearch: "",
@@ -282,6 +284,14 @@ createApp({
         this.contacts.splice(contactIndex, 1);
 
     },
+
+    activateDark(){
+        if(this.darkMode == false){
+            this.darkMode = true;
+        } else {
+            this.darkMode = false
+        }
+    }
       
   },
   mounted(){

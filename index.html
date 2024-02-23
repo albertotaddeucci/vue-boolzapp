@@ -21,7 +21,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body   class="my_bg">
-    <div id="app">
+    <div id="app" >
 
         <div id="accent-nav">
         </div>
@@ -50,10 +50,13 @@
     
         </div>
     
-        <div class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" >
+        <div 
+        :class="darkMode==true?'dark':''"
+        class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" 
+        >
     
             
-            <div class="row bg-white overflow-hidden mx-1">
+            <div class="row bg-white overflow-hidden mx-1" >
     
     
                 <!-- ----------------------------------------------------------------------- -->
@@ -75,7 +78,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-auto d-flex gap-3 my_color_primary me-2 fs-5">
+                        <div class="col-auto d-flex gap-3 my_color_primary me-2 fs-5 align-items-center ">
+                                                        
                             <i class="fa-solid fa-circle-notch"></i>
                             <i class="fa-solid fa-message"></i>
                             <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -84,7 +88,7 @@
                     </div>
     
                     <!-- blu section -->
-                    <div class="row py-3 my_bg_secondary align-items-center ">
+                    <div id="activate" class="row py-3 my_bg_secondary align-items-center ">
                         <div class="col-3 text-center m-auto">
                             
                             <i class="fa-solid fa-bell-slash fs-4 p-4 bg-white rounded-circle "></i>
@@ -200,6 +204,16 @@
                                 </div>
                 
                                 <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
+                                    <div id="dark-mode">
+                                        <div
+                                        class="button-dark text-center "
+                                        :class="darkMode==true ? 'animation': 'animation-reverse'"
+                                        @click="activateDark()"
+                                        >
+                                            <i class="fa-solid fa-moon"></i>        
+
+                                        </div>
+                                    </div>
                                     <div>
                                         <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
                                     </div>
