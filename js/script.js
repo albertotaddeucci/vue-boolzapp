@@ -170,19 +170,21 @@ createApp({
         ],
 
         popUp: true,
-        array: [],
-        controlArray: [],
 
+        
         //search contact
         inputSearch: "",
         elementsFound: [],
         notFound: false,
-
-                
-
+        
+        
+        //const for sending messages
         chatIndex: 0,
         messageToSend: "",
-        
+        countMessages: [],
+        countMessagesAfterSend: [], 
+        writing: false,   
+        text:"Sta scrivendo...",   
        
         myMessage: {
                         
@@ -207,24 +209,29 @@ createApp({
     selectChat(index){
         this.chatIndex = index
         this.popUp = false
+        this.writing = false
     },
     riceveAnswer(){
 
         this.contacts.forEach(el=>{
-            this.controlArray.push(el.messages.length)
+            this.countMessagesAfterSend.push(el.messages.length);
         })
 
-        for( let i=0; i<this.array.length; i++){
-            if(this.array[i] != this.controlArray[i]){
+        for( let i=0; i<this.countMessages.length; i++){
+            if(this.countMessages[i] != this.countMessagesAfterSend[i]){
 
-                this.contacts[i].messages.push({...this.answer})
+                this.contacts[i].messages.push({...this.answer});
+                setTimeout(this.online,1000);
+                this.text = "Online";
+                
             }
         }
-
-        this.controlArray = []
-
-
+        this.countMessagesAfterSend = []
         
+    },
+    online(){
+        this.writing = false;
+        this.text = "Sta scrivendo..."
     },
     sendMessage(messageToSend){
 
@@ -232,13 +239,16 @@ createApp({
 
         if(messageToSend.trim() != ""){
 
-            this.myMessage.message = messageToSend
+            this.myMessage.message = messageToSend;
     
-            this.contacts[this.chatIndex].messages.push({...this.myMessage})
+            this.contacts[this.chatIndex].messages.push({...this.myMessage});
     
-            this.messageToSend = ""
+            this.messageToSend = "";
     
-            setTimeout(this.riceveAnswer,1000)
+            setTimeout(this.riceveAnswer,1000);
+
+            this.writing = true
+
 
         }
 
@@ -249,12 +259,12 @@ createApp({
         this.notFound = false
         this.contacts.forEach((element,index) => {
            const toFilter = element.name.toLowerCase()
-           const filtered = toFilter.includes(input.toLowerCase())
+           const filtered = toFilter.includes(input.toLowerCase());
            if(filtered){
-                this.elementsFound.push(index)
+                this.elementsFound.push(index);
 
            } else {
-            this.notFound = true
+            this.notFound = true;
            }
 
         });
@@ -266,10 +276,10 @@ createApp({
     },
 
     deleteMessages(contactIndex){
-        this.contacts[contactIndex].messages = []
+        this.contacts[contactIndex].messages = [];
     },
     deleteChat(contactIndex){
-        this.contacts.splice(contactIndex, 1)
+        this.contacts.splice(contactIndex, 1);
 
     },
       
@@ -277,10 +287,9 @@ createApp({
   mounted(){
 
     this.contacts.forEach(el=>{
-        this.array.push(el.messages.length)
+        this.countMessages.push(el.messages.length);
     })
     
-    console.log(this.array)
 
   }
 }).mount('#app')
