@@ -24,7 +24,7 @@
 
     <div id="app" class="container vh-100 py-5 overflow-hidden my_wrapper">
         
-        <div class="row bg-white overflow-hidden">
+        <div class="row bg-white overflow-hidden mx-1">
 
 
             <!-- ----------------------------------------------------------------------- -->
@@ -168,11 +168,23 @@
                         class="d-flex flex-grow-1 overflow-auto flex-column p-5"                 
                         >
                             <div                                
-                            v-for="message in contact.messages"               
+                            v-for="(message,index2) in contact.messages"               
                             :class="message.status=='sent'? 'sent' : 'received'"
-                            class="col-12 p-3 mb-2 rounded-3"
+                            class="col-12 p-3 mb-2 rounded-3 position-relative "
                             >
-                            {{message.message}}
+                                {{message.message}}
+                                
+                                <div class="dropdown position-absolute top-0 end-0 ">
+                                    <button class="btn bg-transparent rounded-circle border border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                      <li><a class="dropdown-item" >Info messaggio</a></li>
+                                      <li><a class="dropdown-item" @click="deleteMessage(index,index2)">Elimina il messaggio</a></li>
+                                      
+                                    </ul>
+                                </div>
+                                
                                 
 
                             </div>

@@ -235,6 +235,11 @@ createApp({
 
         });
     },
+
+    deleteMessage(contactIndex, messageIndex) {
+
+        this.contacts[contactIndex].messages.splice(messageIndex, 1);
+    }
     
       
   }
