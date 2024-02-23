@@ -247,6 +247,14 @@ createApp({
 
         this.contacts[contactIndex].messages.splice(messageIndex, 1);
     },
+
+    deleteMessages(contactIndex){
+        this.contacts[contactIndex].messages = []
+    },
+    deleteChat(contactIndex){
+        this.contacts.splice(contactIndex, 1)
+
+    }
       
   },
 }).mount('#app')

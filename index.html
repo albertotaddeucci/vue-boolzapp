@@ -161,9 +161,22 @@
                             </div>
             
                             <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
-                                <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
-                                <i class="fa-solid fa-paperclip"></i>
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                <div>
+                                    <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
+                                </div>
+                                <div>
+                                    <i class="fa-solid fa-paperclip"></i>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="bg-transparent  border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" @click="deleteMessages(index)"> Elimina tutti i messaggi</button></li>
+                                        <li><button class="dropdown-item" @click="deleteChat(index)" >Elimina la chat</button></li>
+                                    </ul>
+                                </div>
             
                             </div>
                         </div>
