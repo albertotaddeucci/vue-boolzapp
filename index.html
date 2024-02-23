@@ -11,10 +11,13 @@
     <!-- ------------------------------ My style ------------------------------- -->
     <link rel="stylesheet" href="css/style.css">
 
-
     <!-- ----------------------------- fontawesome ----------------------------- -->
     <script src="https://kit.fontawesome.com/e2fdc6941e.js" crossorigin="anonymous"></script>
 
+    <!-- -------------------------------- luxon -------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+
+    <!-- --------------------------------- vue --------------------------------- -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="my_bg">
@@ -94,26 +97,28 @@
 
                         <!-- contact info -->
                         <div class="col-7 flex-grow-1">
-                            <div class="row">
+                            <div class="row position-relative ">
                                 <div>{{contact.name}}</div>
                                 <div
                                 class="my_small_text"
                                 v-for="(message,index) in contact.messages" 
                                 >
                                     <span v-if="index == contact.messages.length -1">
-                                        {{message.message}}
+                                        {{message.message}}                                        
                                     </span>
                                     
+                                    <!-- last message time -->
+                                    <div 
+                                    v-if="index == contact.messages.length-1" 
+                                    class="my_small_text position-absolute top-0 end-0 pe-3">
+                                        {{message.date}}
+                                    </div>
                                 </div>
                             </div>
 
                             
                         </div>
 
-                        <!-- last message time -->
-                        <div class="my_small_text col-auto lg-black text-end">
-                            12.00
-                        </div>
                         
                         
 
@@ -170,7 +175,7 @@
                             <div                                
                             v-for="(message,index2) in contact.messages"               
                             :class="message.status=='sent'? 'sent' : 'received'"
-                            class="col-12 p-3 mb-2 rounded-3 position-relative "
+                            class="col-12 p-3 mb-3 rounded-3 position-relative "
                             >
                                 {{message.message}}
                                 
@@ -183,6 +188,10 @@
                                       <li><a class="dropdown-item" @click="deleteMessage(index,index2)">Elimina il messaggio</a></li>
                                       
                                     </ul>
+                                </div>
+
+                                <div class="my_time">
+                                    12.00
                                 </div>
                                 
                                 

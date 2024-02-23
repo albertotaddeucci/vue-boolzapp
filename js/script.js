@@ -1,5 +1,5 @@
 
-
+const {DateTime} = luxon;
 const { createApp } = Vue
 
 createApp({
@@ -211,13 +211,20 @@ createApp({
     },
     sendMessage(messageToSend){
 
-        this.myMessage.message = messageToSend
+        
 
-        this.contacts[this.chatIndex].messages.push({...this.myMessage})
+        if(messageToSend.trim() != ""){
 
-        this.messageToSend = ""
+            this.myMessage.message = messageToSend
+    
+            this.contacts[this.chatIndex].messages.push({...this.myMessage})
+    
+            this.messageToSend = ""
+    
+            setTimeout(this.riceveAnswer,1000)
 
-        setTimeout(this.riceveAnswer,1000)
+        }
+
 
     },
     search(input){
@@ -239,9 +246,38 @@ createApp({
     deleteMessage(contactIndex, messageIndex) {
 
         this.contacts[contactIndex].messages.splice(messageIndex, 1);
-    }
-    
+    },
       
-  }
-  
+  },
 }).mount('#app')
+
+
+
+
+
+// per date da riguardare
+
+
+//   mounted(){
+//       this.contacts.forEach(contact => {
+//           contact.messages.forEach(message => {
+//               const date = new Date(message.date);
+//               const formattedDate = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+//               console.log(formattedDate);
+//           });
+//       });
+//         this.contacts.forEach(element => {
+
+            
+//             // element.messages.forEach(el=>{
+//             //     let date = new Date(toString(el.date))
+//             //     let b = date.toISOString()
+//             //     const a =  DateTime.fromISO(b).toFormat('T'); 
+//             //     console.log(a)
+//             // })
+//         })
+        
+        
+
+//   }
+  

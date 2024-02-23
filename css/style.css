@@ -95,3 +95,12 @@ img{
     width: 30ch;
     
 }
+
+.my_time{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 5px;
+    filter: opacity(0.5);
+    font-size: 12px;
+}
