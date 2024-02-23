@@ -170,13 +170,15 @@ createApp({
         ],
 
         popUp: true,
+        array: [],
+        controlArray: [],
 
         //search contact
         inputSearch: "",
         elementsFound: [],
         notFound: false,
 
-        
+                
 
         chatIndex: 0,
         messageToSend: "",
@@ -208,7 +210,19 @@ createApp({
     },
     riceveAnswer(){
 
-        this.contacts[this.chatIndex].messages.push({...this.answer})
+        this.contacts.forEach(el=>{
+            this.controlArray.push(el.messages.length)
+        })
+
+        for( let i=0; i<this.array.length; i++){
+            if(this.array[i] != this.controlArray[i]){
+
+                this.contacts[i].messages.push({...this.answer})
+            }
+        }
+
+        this.controlArray = []
+
 
         
     },
@@ -260,6 +274,15 @@ createApp({
     },
       
   },
+  mounted(){
+
+    this.contacts.forEach(el=>{
+        this.array.push(el.messages.length)
+    })
+    
+    console.log(this.array)
+
+  }
 }).mount('#app')
 
 
