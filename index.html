@@ -73,17 +73,18 @@
                 <div class="row p-2 my_bg_primary">
                     <div class="input-group p-0">
                         <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass m-auto my_color_primary"></i></span>
-                        <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1">
+                        <input v-model="inputSearch" @keyup="search(inputSearch)" type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
 
                 <!-- chats list -->
                 <div id="chats" class="d-flex flex-column overflow-auto h-100">
                     <div 
-                    v-for="(contact,index) in contacts"  
+                    v-for="(contact,index) in contacts" 
+                    v-show="elementsFound.includes(index) || elementsFound == '' && notFound == false"                     
                     class="row py-2 border border-top-0"
                     :class="index == chatIndex? 'active': ''"
-                    @click="selectChat(index)"
+                    @click="selectChat(index)"                    
                     >
                         <!-- immagine avatar -->
                         <div class="col-auto">

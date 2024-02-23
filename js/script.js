@@ -169,17 +169,22 @@ createApp({
             }
         ],
 
+        //search contact
+        inputSearch: "",
+        elementsFound: [],
+        notFound: false,
+
+        
+
         chatIndex: 0,
-
         messageToSend: "",
-
+        
+       
         myMessage: {
                         
             date: 'xxx',
             message: '',
             status: 'sent'
-                
-            
 
         },
 
@@ -214,6 +219,21 @@ createApp({
 
         setTimeout(this.riceveAnswer,1000)
 
+    },
+    search(input){
+        this.elementsFound = []
+        this.notFound = false
+        this.contacts.forEach((element,index) => {
+           const toFilter = element.name.toLowerCase()
+           const filtered = toFilter.includes(input.toLowerCase())
+           if(filtered){
+                this.elementsFound.push(index)
+
+           } else {
+            this.notFound = true
+           }
+
+        });
     },
     
       
