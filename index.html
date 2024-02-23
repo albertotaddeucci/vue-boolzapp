@@ -219,7 +219,13 @@
             
                             </div>
                             <div class="col-auto">
-                                <i class="fa-solid fa-microphone fs-4"></i>
+                                <i 
+                                v-if="messageToSend==''"
+                                class="fa-solid fa-microphone fs-4"></i>
+                                <i v-else 
+                                @click="sendMessage(messageToSend)"
+                                class="fa-solid fa-paper-plane fs-4"></i>
+                                
                             </div>
                         </div>
 
