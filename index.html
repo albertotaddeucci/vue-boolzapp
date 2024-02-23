@@ -20,33 +20,36 @@
     <!-- --------------------------------- vue --------------------------------- -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body class="my_bg">
+<body  id="app" class="my_bg">
 
     <div id="accent-nav">
     </div>
-
-    <div id="app" class="container vh-100 py-5 overflow-hidden my_wrapper position-relative">
-
-        <div id="pop-up"
-        :class="popUp == false ? 'd-none' : 'd-flex'">
-            <div class="pop-request text-center">
-                <h1>Felice di rivederti!</h1>
-                <p>Con chi vuoi chattare oggi?</p>
-                <ul class="list-group list-group-flush ">
-                    <li 
-                    @click="selectChat(index)"
-                    v-for="(contact,index) in contacts" 
-                    class="list-group-item bg-transparent"                    
-                    >
-                        {{contact.name}}
-                        
-                    </li>
+    
+    <div id="pop-up"
+    :class="popUp == false ? 'd-none' : 'd-flex'"
+    class=""
+    >
+        <div class="pop-request text-center">
+            <h1>Felice di rivederti!</h1>
+            <p>Con chi vuoi chattare oggi?</p>
+            <ul class="list-group list-group-flush ">
+                <li 
+                @click="selectChat(index)"
+                v-for="(contact,index) in contacts" 
+                class="list-group-item bg-transparent"                    
+                >
+                    {{contact.name}}
                     
-                </ul>
+                </li>
+                
+            </ul>
 
-
-            </div>
         </div>
+
+    </div>
+
+    <div class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" >
+
         
         <div class="row bg-white overflow-hidden mx-1">
 
@@ -272,8 +275,9 @@
             
 
         </div>
-    </div>
 
+    </div>
+    
 
 
     <!-- --------------------------------- JS ---------------------------------- -->
