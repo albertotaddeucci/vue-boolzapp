@@ -43,6 +43,10 @@ body{
     height: calc(100vh - 6rem);
 }
 
+.my_wrapper{
+    max-width: 1600px;
+}
+
 /* images */
 img{
     width: 100%;
@@ -61,13 +65,14 @@ img{
     
 }
 
-
-
 .my_small_text{
     font-size: 12px;
     color: #bec3c9;
 }
 
+.active{
+    background-color: #e9ebeb;
+}
 
 
 /* -------------------------------- main chat ------------------------------- */

@@ -22,7 +22,7 @@
     <div id="accent-nav">
     </div>
 
-    <div id="app" class="container vh-100 py-5 overflow-hidden ">
+    <div id="app" class="container vh-100 py-5 overflow-hidden my_wrapper">
         
         <div class="row bg-white overflow-hidden">
 
@@ -30,7 +30,7 @@
             <!-- ----------------------------------------------------------------------- -->
             <!--                                  Aside                                  -->
             <!-- ----------------------------------------------------------------------- -->
-            <div id="aside" class="col-5 my_height">
+            <div id="aside" class="col-12 col-md-6 col-xl-4 my_height">
 
                 <!-- header -->
                 <div class="row justify-content-between py-2 my_bg_primary align-items-center">
@@ -78,29 +78,43 @@
                 </div>
 
                 <!-- chats list -->
-                <div id="chats" class="row align-content-start overflow-auto h-100">
-                    <div v-for="(contact,index) in contacts" 
-                         class="row justify-content-between py-2 m-0"
-                         @click="selectChat(index)"
+                <div id="chats" class="d-flex flex-column overflow-auto h-100">
+                    <div 
+                    v-for="(contact,index) in contacts"  
+                    class="row py-2 border border-top-0"
+                    :class="index == chatIndex? 'active': ''"
+                    @click="selectChat(index)"
                     >
+                        <!-- immagine avatar -->
                         <div class="col-auto">
+                            <img :src="contact.avatar"  alt="">
+
+                        </div>
+
+                        <!-- contact info -->
+                        <div class="col-7 flex-grow-1">
                             <div class="row">
-                                <div class="col-auto">
-                                    <img :src="contact.avatar"  alt="">
-    
+                                <div>{{contact.name}}</div>
+                                <div
+                                class="my_small_text"
+                                v-for="(message,index) in contact.messages" 
+                                >
+                                    <span v-if="index == contact.messages.length -1">
+                                        {{message.message}}
+                                    </span>
+                                    
                                 </div>
-                                <div class="col-auto">
-                                    <div class="row">
-                                        <div>{{contact.name}}</div>
-                                        <div class="my_small_text">Ultimo messaggio inviato</div>
-                                    </div>
-    
-                                </div>
-                            </div>                    
+                            </div>
+
+                            
                         </div>
-                        <div class="col-auto my_small_text">
-                            time
+
+                        <!-- last message time -->
+                        <div class="my_small_text col-auto lg-black text-end">
+                            12.00
                         </div>
+                        
+                        
 
                     </div>
                     
@@ -113,83 +127,87 @@
             <!-- ----------------------------------------------------------------------- -->
             <!--                                Main                                     -->
             <!-- ----------------------------------------------------------------------- -->
-            <div class="col-7 my_height p-0"
-            id="main" 
-            v-for="(contact,index) in contacts" 
-            v-show="index==chatIndex"          
-            >
-                <div class="d-flex flex-column my_height ">
+            <div class="d-none d-md-block col-md-6 col-xl-8 p-0">
+                <div class="my_height"
+                id="main" 
+                v-for="(contact,index) in contacts" 
+                v-show="index==chatIndex"          
+                >
+                    <div class="d-flex flex-column my_height ">
 
-                    <!-- header -->
-                    <div class="row justify-content-between align-items-center p-2 my_bg_primary">
-                        <div class="col-auto">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <img :src="contact.avatar"  alt="">
-                                </div>
-                                <div class="col-auto">
-                                    <div class="row">
-                                        <span class="info-name">{{contact.name}}</span>
-                                        <span class="my_small_text">Ultimo accesso</span>
-        
+                        <!-- header -->
+                        <div class="row justify-content-between align-items-center p-2 my_bg_primary">
+                            <div class="col-auto">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <img :src="contact.avatar"  alt="">
                                     </div>
-        
-                                </div>
-        
-                            </div>                        
-                        </div>
-        
-                        <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
-                            <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
-                            <i class="fa-solid fa-paperclip"></i>
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-        
-                        </div>
-                    </div>
-        
-                    <!-- chat -->
-                    <div id="main-chat"
-                    class="d-flex flex-grow-1 overflow-auto flex-column p-5"                 
-                    >
-                        <div                                
-                        v-for="message in contact.messages"               
-                        :class="message.status=='sent'? 'sent' : 'received'"
-                        class="col-12 p-3 mb-2 rounded-3"
-                        >
-                        {{message.message}}
-                            
-
-                        </div>
-        
-                    </div>
-        
-        
-                    <!-- input  -->
-                    <div class="row my_bg_primary m-0 p-3 align-items-center ">
-                        <div class="col-auto">
-                            <i class="fa-regular fa-face-smile fs-4"></i>
-                        </div>
-                        <div class="col-auto flex-grow-1 ">
-                            <div class="input-group flex-nowrap">
-                                <input
-                                v-model="messageToSend"
-                                type="text"
-                                class="form-control"
-                                placeholder="Scrivi un messaggio"
-                                @keyup.enter="sendMessage(messageToSend)"
-                                >
+                                    <div class="col-auto">
+                                        <div class="row">
+                                            <span class="info-name">{{contact.name}}</span>
+                                            <span class="my_small_text">Ultimo accesso</span>
+            
+                                        </div>
+            
+                                    </div>
+            
+                                </div>                        
                             </div>
-        
+            
+                            <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
+                                <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
+                                <i class="fa-solid fa-paperclip"></i>
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+            
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fa-solid fa-microphone fs-4"></i>
-                        </div>
-                    </div>
+            
+                        <!-- chat -->
+                        <div id="main-chat"
+                        class="d-flex flex-grow-1 overflow-auto flex-column p-5"                 
+                        >
+                            <div                                
+                            v-for="message in contact.messages"               
+                            :class="message.status=='sent'? 'sent' : 'received'"
+                            class="col-12 p-3 mb-2 rounded-3"
+                            >
+                            {{message.message}}
+                                
 
+                            </div>
+            
+                        </div>
+            
+            
+                        <!-- input  -->
+                        <div class="row my_bg_primary m-0 p-3 align-items-center ">
+                            <div class="col-auto">
+                                <i class="fa-regular fa-face-smile fs-4"></i>
+                            </div>
+                            <div class="col-auto flex-grow-1 ">
+                                <div class="input-group flex-nowrap">
+                                    <input
+                                    v-model="messageToSend"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Scrivi un messaggio"
+                                    @keyup.enter="sendMessage(messageToSend)"
+                                    >
+                                </div>
+            
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-microphone fs-4"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                
                 </div>
-            
-            
+
             </div>
+            
 
         </div>
     </div>

@@ -214,9 +214,9 @@ createApp({
 
         setTimeout(this.riceveAnswer,1000)
 
-        
-
-    }
-  },
+    },
+    
+      
+  }
   
 }).mount('#app')
