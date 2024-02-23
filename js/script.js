@@ -169,6 +169,8 @@ createApp({
             }
         ],
 
+        popUp: true,
+
         //search contact
         inputSearch: "",
         elementsFound: [],
@@ -202,6 +204,7 @@ createApp({
   methods: {
     selectChat(index){
         this.chatIndex = index
+        this.popUp = false
     },
     riceveAnswer(){
 
@@ -254,7 +257,7 @@ createApp({
     deleteChat(contactIndex){
         this.contacts.splice(contactIndex, 1)
 
-    }
+    },
       
   },
 }).mount('#app')

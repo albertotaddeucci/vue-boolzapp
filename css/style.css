@@ -104,3 +104,38 @@ img{
     filter: opacity(0.5);
     font-size: 12px;
 }
+
+/* --------------------------------- pop-up --------------------------------- */
+#pop-up{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #1c4e49a0;
+}
+
+.pop-request{
+    padding: 2em;
+    border-radius: 10px;
+    background-color:#1c4e49;
+    
+    background-image: url(../img/mine.jpg);
+    
+    
+}
+
+.pop-request li:hover{
+    color: #1c4e49;
+    cursor: pointer;
+    border-inline: 1px solid #1c4e49;
+   
+}
+
+.pop-request li:not(:hover){
+    filter: opacity(0.4)
+}

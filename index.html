@@ -25,7 +25,28 @@
     <div id="accent-nav">
     </div>
 
-    <div id="app" class="container vh-100 py-5 overflow-hidden my_wrapper">
+    <div id="app" class="container vh-100 py-5 overflow-hidden my_wrapper position-relative">
+
+        <div id="pop-up"
+        :class="popUp == false ? 'd-none' : 'd-flex'">
+            <div class="pop-request text-center">
+                <h1>Felice di rivederti!</h1>
+                <p>Con chi vuoi chattare oggi?</p>
+                <ul class="list-group list-group-flush ">
+                    <li 
+                    @click="selectChat(index)"
+                    v-for="(contact,index) in contacts" 
+                    class="list-group-item bg-transparent"                    
+                    >
+                        {{contact.name}}
+                        
+                    </li>
+                    
+                </ul>
+
+
+            </div>
+        </div>
         
         <div class="row bg-white overflow-hidden mx-1">
 
