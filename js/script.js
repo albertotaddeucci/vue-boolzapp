@@ -182,6 +182,7 @@ createApp({
         
         //const for sending messages
         chatIndex: 0,
+        arrayUrlAvatar:[],
         messageToSend: "",
         countMessages: [],
         countMessagesAfterSend: [], 
@@ -204,12 +205,21 @@ createApp({
 
         },
 
-        
+        newContact: {
+            name: '',
+            avatar: '',
+            visible: true,
+            messages: [],
 
+        },
 
-      
+        newName: "",
+        popUpNewContact: false,
+
     }
   },
+
+
   methods: {
     selectChat(index){
         this.chatIndex = index
@@ -217,10 +227,13 @@ createApp({
         this.writing = false
     },
     riceveAnswer(){
-
+               
+        
         this.contacts.forEach(el=>{
             this.countMessagesAfterSend.push(el.messages.length);
         })
+
+        console.log(this.countMessagesAfterSend)
 
         for( let i=0; i<this.countMessages.length; i++){
             if(this.countMessages[i] != this.countMessagesAfterSend[i]){
@@ -241,7 +254,11 @@ createApp({
     },
     sendMessage(messageToSend){
 
+        this.countMessages = []
         
+        this.contacts.forEach(el=>{
+            this.countMessages.push(el.messages.length);
+        })
 
         if(messageToSend.trim() != ""){
 
@@ -256,11 +273,9 @@ createApp({
             setTimeout(this.riceveAnswer,1000);
 
             this.writing = true
-
-
-
+            
         }
-
+        
 
     },
     getTime(){
@@ -283,6 +298,43 @@ createApp({
 
         });
     },
+
+    chooseAvatar(index){
+        this.newContact.name = this.newName;
+        this.newContact.avatar = this.contacts[index].avatar;
+
+    },
+
+    addContact(){
+
+
+        if(this.newName.trim() != "" && this.newContact.avatar != ""){
+
+            this.contacts.push({...this.newContact});
+            
+            this.popUpNewContact = false
+            
+        }
+
+
+        this.newName="";
+        this.newContact.avatar=""
+        
+        this.countMessages = []
+
+        this.contacts.forEach(el=>{
+            this.countMessages.push(el.messages.length);
+        })
+
+    },
+
+    addingContact(){
+        this.popUpNewContact = true
+    },
+
+
+
+
 
     //delete single message
     deleteMessage(contactIndex, messageIndex) {
@@ -314,9 +366,12 @@ createApp({
   },
   mounted(){
 
-    this.contacts.forEach(el=>{
-        this.countMessages.push(el.messages.length);
-    })
+    
+    this.contacts.forEach(contact => {
+        this.arrayUrlAvatar.push(contact.avatar)
+        ;
+    });
+
 
     //time in contact list
     this.contacts.forEach(contact => {
@@ -328,10 +383,6 @@ createApp({
             message.date = hour 
         });
     });
-    
-    
-    
-
     
 
   }

@@ -50,6 +50,24 @@
     
         </div> -->
     
+        <div class="card position-absolute z-3 " style="width: 500px;"
+        v-show="popUpNewContact==true">
+            <h5 class="card-header">Crea nuovo contatto</h5>
+            <div class="card-body">
+              <h6 class="card-title">Inserisci nome</h6>
+              <input v-model="newName" type="text" class="form-control mb-3" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
+              <h6 class="card-title">Scegli l'avatar</h6>
+
+              <div class="mb-3">
+                <img 
+                @click="chooseAvatar(index)" 
+                v-for="(x,index) in arrayUrlAvatar"
+                :src="arrayUrlAvatar[index]" class="img-thumbnail w-25" alt="">
+              </div>
+              <a @click="addContact()" href="#" class="btn btn-primary">Aggiungi</a>
+            </div>
+        </div>
+
         <div 
         :class="darkMode==true?'dark':''"
         class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" 
@@ -90,7 +108,8 @@
                                 </div>
                             </div>
                                                         
-                            <i class="fa-solid fa-circle-notch"></i>
+                            <i class="fa-solid fa-circle-notch"
+                            @click="addingContact()"></i>
                             <i class="fa-solid fa-message"></i>
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                             
