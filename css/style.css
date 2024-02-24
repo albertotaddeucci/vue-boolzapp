@@ -160,6 +160,8 @@ img{
     width: 30px;
     border-radius: 50%;
     color: black;
+
+    cursor: pointer;
 }
 
 

@@ -27,7 +27,7 @@
         </div>
         
         <!-- ------------------------------- pop-up -------------------------------- -->
-        <div id="pop-up"
+        <!-- <div id="pop-up"
         :class="popUp == false ? 'd-none' : 'd-flex'"
         class=""
         >
@@ -48,7 +48,7 @@
     
             </div>
     
-        </div>
+        </div> -->
     
         <div 
         :class="darkMode==true?'dark':''"
@@ -79,6 +79,16 @@
                             </div>
                         </div>
                         <div class="col-auto d-flex gap-3 my_color_primary me-2 fs-5 align-items-center ">
+                            <div id="dark-mode">
+                                <div
+                                class="button-dark text-center "
+                                :class="darkMode==true ? 'animation': 'animation-reverse'"
+                                @click="activateDark()"
+                                >
+                                    <i class="fa-solid fa-moon"></i>        
+
+                                </div>
+                            </div>
                                                         
                             <i class="fa-solid fa-circle-notch"></i>
                             <i class="fa-solid fa-message"></i>
@@ -191,9 +201,13 @@
 
                                                 <span 
                                                 v-else
+                                                v-for="(message,index) in contact.messages" 
+                                                v-show="index == contact.messages.length -1"                                              
                                                 class="my_small_text"
                                                 >
                                                     Ultimo accesso alle 
+                                                    <span>{{message.date}}</span>
+                                                    
                                                 </span>
                 
                                             </div>
@@ -204,16 +218,7 @@
                                 </div>
                 
                                 <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
-                                    <div id="dark-mode">
-                                        <div
-                                        class="button-dark text-center "
-                                        :class="darkMode==true ? 'animation': 'animation-reverse'"
-                                        @click="activateDark()"
-                                        >
-                                            <i class="fa-solid fa-moon"></i>        
-
-                                        </div>
-                                    </div>
+                                    
                                     <div>
                                         <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
                                     </div>
@@ -257,7 +262,7 @@
                                     </div>
     
                                     <div class="my_time">
-                                        12.00
+                                        {{message.date}}
                                     </div>
                                     
                                     

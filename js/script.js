@@ -190,7 +190,7 @@ createApp({
        
         myMessage: {
                         
-            date: 'xxx',
+            date: "",
             message: '',
             status: 'sent'
 
@@ -198,11 +198,14 @@ createApp({
 
         answer: {
 
-            date: 'xxx',
+            date:"" ,
             message: 'Ok',
             status: 'Received'
 
-        }
+        },
+
+        
+
 
       
     }
@@ -222,6 +225,7 @@ createApp({
         for( let i=0; i<this.countMessages.length; i++){
             if(this.countMessages[i] != this.countMessagesAfterSend[i]){
 
+                this.answer.date = this.getTime()
                 this.contacts[i].messages.push({...this.answer});
                 setTimeout(this.online,1000);
                 this.text = "Online";
@@ -242,6 +246,8 @@ createApp({
         if(messageToSend.trim() != ""){
 
             this.myMessage.message = messageToSend;
+
+            this.myMessage.date = this.getTime()
     
             this.contacts[this.chatIndex].messages.push({...this.myMessage});
     
@@ -252,8 +258,14 @@ createApp({
             this.writing = true
 
 
+
         }
 
+
+    },
+    getTime(){
+        const date = DateTime.now().toFormat("HH:mm")
+        return date
 
     },
     search(input){
@@ -272,19 +284,25 @@ createApp({
         });
     },
 
+    //delete single message
     deleteMessage(contactIndex, messageIndex) {
 
         this.contacts[contactIndex].messages.splice(messageIndex, 1);
     },
 
+    //delete all chat's messages 
     deleteMessages(contactIndex){
         this.contacts[contactIndex].messages = [];
     },
+
+    //delete chat
     deleteChat(contactIndex){
         this.contacts.splice(contactIndex, 1);
 
     },
 
+
+    //to activate dark mode
     activateDark(){
         if(this.darkMode == false){
             this.darkMode = true;
@@ -299,38 +317,24 @@ createApp({
     this.contacts.forEach(el=>{
         this.countMessages.push(el.messages.length);
     })
+
+    //time in contact list
+    this.contacts.forEach(contact => {
+        contact.messages.forEach(message => {
+
+            const date = message.date;
+            const time = date.split(" ");
+            const hour = time[1].slice(0,5);
+            message.date = hour 
+        });
+    });
+    
+    
+    
+
     
 
   }
 }).mount('#app')
 
-
-
-
-
-// per date da riguardare
-
-
-//   mounted(){
-//       this.contacts.forEach(contact => {
-//           contact.messages.forEach(message => {
-//               const date = new Date(message.date);
-//               const formattedDate = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-//               console.log(formattedDate);
-//           });
-//       });
-//         this.contacts.forEach(element => {
-
-            
-//             // element.messages.forEach(el=>{
-//             //     let date = new Date(toString(el.date))
-//             //     let b = date.toISOString()
-//             //     const a =  DateTime.fromISO(b).toFormat('T'); 
-//             //     console.log(a)
-//             // })
-//         })
-        
-        
-
-//   }
   
