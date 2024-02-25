@@ -50,6 +50,7 @@
     
         </div> -->
     
+        <!-- ----------------------------- add contact ----------------------------- -->
         <div class="card position-absolute z-3 " style="width: 500px;"
         v-show="popUpNewContact==true">
             <h5 class="card-header">Crea nuovo contatto</h5>
@@ -74,16 +75,16 @@
         >
     
             
-            <div class="row bg-white overflow-hidden mx-1" >
+            <div class="row bg-white overflow-hidden mx-1 position-relative " >
     
     
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                  Aside                                  -->
                 <!-- ----------------------------------------------------------------------- -->
-                <div id="aside" class="col-12 col-md-6 col-xl-4 my_height p-0">
+                <div id="aside" class="d-flex flex-column col-12 col-md-6 col-xl-4 my_height p-0">
     
                     <!-- header -->
-                    <div class="row justify-content-between py-2 my_bg_primary align-items-center m-0">
+                    <div id="header-aside" class="row justify-content-between py-2 my_bg_primary align-items-center m-0">
                         <div class="col-auto">
                             <div class="row justify-content-start align-items-center ">
                                 <div class="col-auto">
@@ -108,22 +109,31 @@
                                 </div>
                             </div>
                                                         
-                            <i class="fa-solid fa-circle-notch"
-                            @click="addingContact()"></i>
+                            <i class="fa-solid fa-circle-notch"></i>
+
                             <i class="fa-solid fa-message"></i>
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                            <div class="btn-group">
+                                <button type="button" class="bg-transparent border-0 my_color_primary" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical  "></i>
+                                    
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><button class="dropdown-item" @click="addingContact()">Aggiungi unovo contatto</button></li>
+                                </ul>
+                            </div>
                             
                         </div>
                     </div>
     
                     <!-- blu section -->
-                    <div id="activate" class="row py-3 my_bg_secondary align-items-center ">
-                        <div class="col-3 text-center m-auto">
+                    <div id="activate" class="row py-3 m-0 my_bg_secondary align-items-center ">
+                        <div class="col-3 text-center">
                             
                             <i class="fa-solid fa-bell-slash fs-4 p-4 bg-white rounded-circle "></i>
                             
                         </div>
-                        <div class="col-9 p-0">
+                        <div class="col-9">
                             <div>Ricevi notifiche di nuovi messaggi</div>
                             <a href="">Attiva notifiche desktop</a>
     
@@ -140,23 +150,23 @@
                     </div>
     
                     <!-- contact list -->
-                    <div id="chats" class="d-flex flex-column overflow-auto h-100 px-2">
+                    <div id="chats" class="row overflow-y-auto h-100 align-content-start  ">
                         <div 
                         v-for="(contact,index) in contacts" 
                         v-show="elementsFound.includes(index) || elementsFound == '' && notFound == false"                     
-                        class="row py-2 border border-top-0"
+                        class="row py-2 m-0 border border-1 border-top-0 "
                         :class="index == chatIndex? 'active': ''"
                         @click="selectChat(index)"                    
                         >
                             <!-- immagine avatar -->
-                            <div class="col-auto">
+                            <div class="col-auto ">
                                 <img :src="contact.avatar"  alt="">
     
                             </div>
     
                             <!-- contact info -->
-                            <div class="col-7 flex-grow-1">
-                                <div class="row position-relative ">
+                            <div class="col-7 flex-grow-1 ">
+                                <div class="row position-relative p-0 m-0">
                                     <div>{{contact.name}}</div>
                                     <div
                                     class="my_small_text"
@@ -193,50 +203,57 @@
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                Main Chat                                -->
                 <!-- ----------------------------------------------------------------------- -->
-                <div class="d-none d-md-block col-md-6 col-xl-8 p-0">
+                <div id="main" class=" d-md-block col-md-6 col-xl-8 p-0"
+                :class="smallChat==true?'small-chat':'d-none'" >
+                                        
                     <div class="my_height"
                     id="main" 
                     v-for="(contact,index) in contacts" 
                     v-show="index==chatIndex"          
                     >
-                        <div class="d-flex flex-column my_height ">
+                        <div class="d-flex flex-column my_height">
     
                             <!-- header -->
-                            <div class="row justify-content-between align-items-center p-2 my_bg_primary">
-                                <div class="col-auto">
-                                    <div class="row">
+                            <div id="header-chat" class="row justify-content-between align-items-center m-0 py-2 my_bg_primary">
+                                
+                                <div class="col-auto ">
+                                    <div class="row align-items-center ">
+                                        <div 
+                                        class="col-auto pe-2"
+                                        v-show="smallChat == true"
+                                        >
+                                            <i @click="goBack()" class="fa-solid fa-arrow-left"></i>
+
+                                        </div>
                                         <div class="col-auto">
                                             <img :src="contact.avatar"  alt="">
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="row">
-                                                <span class="info-name">{{contact.name}}</span>
-                                                <span 
-                                                v-if="writing==true"
-                                                class="my_small_text"
-                                                >
-                                                    {{text}}
-                                                </span>
+                                        <div class="col-auto p-0">
+                                            <div class="info-name">{{contact.name}}</div>
+                                            <span 
+                                            v-if="writing==true"
+                                            class="my_small_text"
+                                            >
+                                                {{text}}
+                                            </span>
 
-                                                <span 
-                                                v-else
-                                                v-for="(message,index) in contact.messages" 
-                                                v-show="index == contact.messages.length -1"                                              
-                                                class="my_small_text"
-                                                >
-                                                    Ultimo accesso alle 
-                                                    <span>{{message.date}}</span>
-                                                    
-                                                </span>
-                
-                                            </div>
-                
+                                            <span 
+                                            v-else
+                                            v-for="(message,index) in contact.messages" 
+                                            v-show="index == contact.messages.length -1"                                              
+                                            class="my_small_text"
+                                            >
+                                                Ultimo accesso alle 
+                                                <span>{{message.date}}</span>
+                                                
+                                            </span>
+                                            
                                         </div>
                 
                                     </div>                        
                                 </div>
                 
-                                <div class="col-auto d-flex gap-4 my_color_primary me-2 fs-5">
+                                <div class="col-auto d-flex gap-3 gap-sm-4  my_color_primary fs-5 ps-0">
                                     
                                     <div>
                                         <i class="fa-solid fa-magnifying-glass my_color_primary"></i>
@@ -245,7 +262,7 @@
                                         <i class="fa-solid fa-paperclip"></i>
                                     </div>
                                     <div class="btn-group">
-                                        <button type="button" class="bg-transparent  border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button type="button" class="bg-transparent  border-0 my_color_primary" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fa-solid fa-ellipsis-vertical"></i>
                                             
                                         </button>
@@ -260,7 +277,7 @@
                 
                             <!-- chat -->
                             <div id="main-chat"
-                            class="d-flex flex-grow-1 overflow-auto flex-column p-5"                 
+                            class="d-flex flex-column flex-grow-1 overflow-auto p-5"                 
                             >
                                 <div                                
                                 v-for="(message,index2) in contact.messages"               

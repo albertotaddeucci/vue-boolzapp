@@ -173,6 +173,8 @@ createApp({
 
         darkMode: false,
 
+        smallChat: false,
+
         
         //search contact
         inputSearch: "",
@@ -225,6 +227,19 @@ createApp({
         this.chatIndex = index
         this.popUp = false
         this.writing = false
+
+        console.dir(window.screen)
+
+        if(window.innerWidth<=768){
+            this.smallChat = true
+        } else{
+            this.smallChat = false
+        }
+
+
+    },
+    goBack(){
+        this.smallChat = false
     },
     riceveAnswer(){
                
@@ -383,6 +398,8 @@ createApp({
             message.date = hour 
         });
     });
+
+    console.log(window.screen.width + "x" + window.screen.height)
     
 
   }
