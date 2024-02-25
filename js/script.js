@@ -173,6 +173,8 @@ createApp({
 
         darkMode: false,
 
+        splash: true,
+
         smallChat: false,
 
         
@@ -217,6 +219,7 @@ createApp({
 
         newName: "",
         popUpNewContact: false,
+        indexAvatar: null,
 
     }
   },
@@ -230,7 +233,7 @@ createApp({
 
         console.dir(window.screen)
 
-        if(window.innerWidth<=768){
+        if(window.innerWidth<768){
             this.smallChat = true
         } else{
             this.smallChat = false
@@ -315,13 +318,14 @@ createApp({
     },
 
     chooseAvatar(index){
-        this.newContact.name = this.newName;
         this.newContact.avatar = this.contacts[index].avatar;
-
+        this.indexAvatar = index
+        
     },
-
+    
     addContact(){
-
+        
+        this.newContact.name = this.newName;
 
         if(this.newName.trim() != "" && this.newContact.avatar != ""){
 
@@ -329,11 +333,12 @@ createApp({
             
             this.popUpNewContact = false
             
+            this.newName="";
+            this.newContact.avatar=""
+            this.choosedAvatar=false
         }
 
 
-        this.newName="";
-        this.newContact.avatar=""
         
         this.countMessages = []
 
@@ -376,11 +381,14 @@ createApp({
         } else {
             this.darkMode = false
         }
+    },
+    splashOn(){
+        this.splash = false
     }
-      
-  },
-  mounted(){
-
+    
+},
+mounted(){
+    
     
     this.contacts.forEach(contact => {
         this.arrayUrlAvatar.push(contact.avatar)
@@ -399,7 +407,7 @@ createApp({
         });
     });
 
-    console.log(window.screen.width + "x" + window.screen.height)
+    setTimeout(this.splashOn,1000)
     
 
   }

@@ -2,6 +2,7 @@
 
 body{
     font-family: sans-serif;
+    position: relative;
 }
 
 /* --------------------------------- colors --------------------------------- */
@@ -18,9 +19,17 @@ body{
     background-color: #8edafc;
 }
 
+.my_bg_accent{
+    background-color: #009688
+}
+
 .my_color_primary{
     color: #b1b1b1 ;
 
+}
+
+.my_shadow{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 
@@ -32,7 +41,7 @@ body{
     z-index: -1;
     
     width: 100%;
-    height: 10%;
+    height: 13%;
     
     background-color: #009688;
 }
@@ -41,6 +50,10 @@ body{
 
 .my_height{
     height: calc(100vh - 6rem);
+}
+
+.my_height_list{
+    height: calc(100vh - 6rem - 66px - 103px - 54px)
 }
 
 .my_wrapper{
@@ -54,6 +67,36 @@ img{
     border-radius: 50%;
 }
 
+/* ---------------------------------- splash-page --------------------------------- */
+
+
+#splash{
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    background-color: #009688;
+
+}
+
+#splash img{
+    
+
+
+    width: 100px;
+    height: 100px;
+}
+
+.splash-page{
+    opacity: 0;
+    transition: 1s ease;
+    
+    z-index: -1 !important;
+}
+
 
 
 /* ---------------------------------- aside --------------------------------- */
@@ -62,11 +105,11 @@ img{
     height: 70px;
 }
 
-#chats > div:hover{
+#chats  div:hover{
     cursor: pointer;
 }
 
-#chats > div:not(.active):hover{
+#chats > .row > div:not(.active):hover{
     background-color: #e9ebeb4e;
     
 }
@@ -106,6 +149,7 @@ img{
     transition: 0.3s ease;
 }
 
+
 #main-chat{
     background-image: url(../img/mine.jpg);
 }
@@ -123,6 +167,11 @@ img{
     align-self: flex-start;
     width: 30ch;
     
+}
+
+.fa-chevron-down:hover{
+    opacity: 1 !important;
+
 }
 
 .my_time{
@@ -168,6 +217,17 @@ img{
 .pop-request li:not(:hover){
     filter: opacity(0.4)
 }
+/* ------------------------------- new contact ------------------------------ */
+
+#new-contact img:hover{
+    transform: scale(103%);
+}
+
+.choosed-avatar{
+    border: 2px solid #1c4e49;
+}
+
+
 
 
 /* -------------------------------- Dark Mode ------------------------------- */
@@ -292,7 +352,7 @@ img{
 
 
 .dark #dark-mode{
-    background-color: green;
+    background-color: #009688;
     
 }
 
@@ -309,13 +369,4 @@ img{
     }
     
 }
-/* .small-chat{
-
-    position: absolute;
-    opacity: 1;
-    width: 100%;
-    
-    
-
-} */
 

@@ -20,14 +20,24 @@
     <!-- --------------------------------- vue --------------------------------- -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body   class="my_bg">
+<body   class="my_bg overflow-hidden ">
     <div id="app" >
 
         <div id="accent-nav">
         </div>
+
+
+        <!-- ----------------------------- splashpage ------------------------------ -->
+
+        <div id="splash"
+        :class="splash==false? 'splash-page':''">
+
+            <img src="./img/bln-img.png" alt=""  class="position-absolute z-3 top-50 start-50 translate-middle">
+
+        </div>
         
         <!-- ------------------------------- pop-up -------------------------------- -->
-        <!-- <div id="pop-up"
+        <div id="pop-up"
         :class="popUp == false ? 'd-none' : 'd-flex'"
         class=""
         >
@@ -48,24 +58,29 @@
     
             </div>
     
-        </div> -->
+        </div>
     
         <!-- ----------------------------- add contact ----------------------------- -->
-        <div class="card position-absolute z-3 " style="width: 500px;"
+        <div id="new-contact" class="card position-absolute z-3 w-50 top-50 start-50 translate-middle my_shadow "
         v-show="popUpNewContact==true">
-            <h5 class="card-header">Crea nuovo contatto</h5>
+            <h5 class="card-header my_bg_accent text-white">Crea nuovo contatto</h5>
             <div class="card-body">
-              <h6 class="card-title">Inserisci nome</h6>
-              <input v-model="newName" type="text" class="form-control mb-3" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
-              <h6 class="card-title">Scegli l'avatar</h6>
+                <h6 class="card-title">Inserisci nome</h6>
+                <input v-model="newName" type="text" class="form-control mb-3" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
+                <h6 class="card-title">Scegli l'avatar</h6>
 
-              <div class="mb-3">
-                <img 
-                @click="chooseAvatar(index)" 
-                v-for="(x,index) in arrayUrlAvatar"
-                :src="arrayUrlAvatar[index]" class="img-thumbnail w-25" alt="">
-              </div>
-              <a @click="addContact()" href="#" class="btn btn-primary">Aggiungi</a>
+                <div class="mb-3"
+                >
+                    <img 
+                    @click="chooseAvatar(index)" 
+                    v-for="(x,index) in arrayUrlAvatar"
+                    :src="arrayUrlAvatar[index]" class="img-thumbnail w-25" alt=""
+                    :class="indexAvatar == index?'choosed-avatar':''">
+                </div>
+                <div class="text-center">
+                  <a @click="addContact()" href="#" class="btn btn-outline-success my_bg_accent text-white">Aggiungi</a>
+
+                </div>
             </div>
         </div>
 
@@ -81,121 +96,143 @@
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                  Aside                                  -->
                 <!-- ----------------------------------------------------------------------- -->
-                <div id="aside" class="d-flex flex-column col-12 col-md-6 col-xl-4 my_height p-0">
-    
-                    <!-- header -->
-                    <div id="header-aside" class="row justify-content-between py-2 my_bg_primary align-items-center m-0">
-                        <div class="col-auto">
-                            <div class="row justify-content-start align-items-center ">
+                <div id="aside" class="col-12 col-md-6 col-xl-4 ">
+
+                    <div class="row my_height align-content-start overflow-hidden ">
+                        <!-- header -->
+                        <div id="header-aside" class="col-12 justify-content-between py-2 my_bg_primary align-items-center">
+                            <div class="row justify-content-between ">
+                                <!-- avatar & text -->
                                 <div class="col-auto">
-                                    <img src="img/avatar_1.jpg"  alt="">
-    
-                                </div>
-                                <div class="col-auto">
-                                    <div>Alberto</div>
-    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto d-flex gap-3 my_color_primary me-2 fs-5 align-items-center ">
-                            <div id="dark-mode">
-                                <div
-                                class="button-dark text-center "
-                                :class="darkMode==true ? 'animation': 'animation-reverse'"
-                                @click="activateDark()"
-                                >
-                                    <i class="fa-solid fa-moon"></i>        
 
-                                </div>
-                            </div>
-                                                        
-                            <i class="fa-solid fa-circle-notch"></i>
-
-                            <i class="fa-solid fa-message"></i>
-
-                            <div class="btn-group">
-                                <button type="button" class="bg-transparent border-0 my_color_primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-ellipsis-vertical  "></i>
-                                    
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><button class="dropdown-item" @click="addingContact()">Aggiungi unovo contatto</button></li>
-                                </ul>
-                            </div>
-                            
-                        </div>
-                    </div>
-    
-                    <!-- blu section -->
-                    <div id="activate" class="row py-3 m-0 my_bg_secondary align-items-center ">
-                        <div class="col-3 text-center">
-                            
-                            <i class="fa-solid fa-bell-slash fs-4 p-4 bg-white rounded-circle "></i>
-                            
-                        </div>
-                        <div class="col-9">
-                            <div>Ricevi notifiche di nuovi messaggi</div>
-                            <a href="">Attiva notifiche desktop</a>
-    
-                        </div>
-    
-                    </div>
-    
-                    <!-- input -->
-                    <div class="row p-2 my_bg_primary">
-                        <div class="input-group">
-                            <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass m-auto my_color_primary"></i></span>
-                            <input v-model="inputSearch" @keyup="search(inputSearch)" type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-    
-                    <!-- contact list -->
-                    <div id="chats" class="row overflow-y-auto h-100 align-content-start  ">
-                        <div 
-                        v-for="(contact,index) in contacts" 
-                        v-show="elementsFound.includes(index) || elementsFound == '' && notFound == false"                     
-                        class="row py-2 m-0 border border-1 border-top-0 "
-                        :class="index == chatIndex? 'active': ''"
-                        @click="selectChat(index)"                    
-                        >
-                            <!-- immagine avatar -->
-                            <div class="col-auto ">
-                                <img :src="contact.avatar"  alt="">
-    
-                            </div>
-    
-                            <!-- contact info -->
-                            <div class="col-7 flex-grow-1 ">
-                                <div class="row position-relative p-0 m-0">
-                                    <div>{{contact.name}}</div>
-                                    <div
-                                    class="my_small_text"
-                                    v-for="(message,index) in contact.messages"                                     >
-                                        
-                                        <span v-if="index == contact.messages.length -1">
-                                            {{message.message}} 
-                                                                                  
-                                        </span>                                       
-                                        
-                                        <!-- last message time -->
-                                        <div 
-                                        v-if="index == contact.messages.length-1" 
-                                        class="my_small_text position-absolute top-0 end-0 pe-3">
-                                            {{message.date}}
+                                    <div class="row justify-content-start align-items-center ">
+                                        <div class="col-auto">
+                                            <img src="img/avatar_1.jpg"  alt="">
+            
+                                        </div>
+                                        <div class="col-auto">
+                                            <div>Alberto</div>
+            
                                         </div>
                                     </div>
                                 </div>
-    
-                                
+                                <!-- icons -->
+                                <div class="col-auto d-flex gap-3 my_color_primary me-2 fs-5 align-items-center ">
+                                    <div id="dark-mode">
+                                        <div
+                                        class="button-dark text-center "
+                                        :class="darkMode==true ? 'animation': 'animation-reverse'"
+                                        @click="activateDark()"
+                                        >
+                                            <i class="fa-solid fa-moon"></i>        
+        
+                                        </div>
+                                    </div>
+                                                                
+                                    <i class="fa-solid fa-circle-notch"></i>
+        
+                                    <i class="fa-solid fa-message"></i>
+        
+                                    <div class="btn-group">
+                                        <button type="button" class="bg-transparent border-0 my_color_primary" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-ellipsis-vertical  "></i>
+                                            
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><button class="dropdown-item" @click="addingContact()">Aggiungi unovo contatto</button></li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+
                             </div>
-    
-                            
-                            
-    
                         </div>
-                        
-                       
+        
+                        <!-- blu section -->
+                        <div id="activate" class="col-12 py-3 my_bg_secondary">
+
+                            <div class="row align-items-center ">
+                                <div class="col-3 text-center">
+                                    
+                                    <i class="fa-solid fa-bell-slash fs-4 p-4 bg-white rounded-circle "></i>
+                                    
+                                </div>
+                                <div class="col-9">
+                                    <div>Ricevi notifiche di nuovi messaggi</div>
+                                    <a href="">Attiva notifiche desktop</a>
+            
+                                </div>
+
+                            </div>
+        
+                        </div>
+        
+                        <!-- input -->
+                        <div class="col-12 p-2 my_bg_primary">
+                            <div class="input-group">
+                                <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass m-auto my_color_primary"></i></span>
+                                <input v-model="inputSearch" @keyup="search(inputSearch)" type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Cerca chat" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+        
+                        <!-- contact list -->
+                        <div id="chats" class="col-12 overflow-y-auto my_height_list" >
+                            <div class="row align-content-start">
+                                <div 
+                                v-for="(contact,index) in contacts" 
+                                v-show="elementsFound.includes(index) || elementsFound == '' && notFound == false"                     
+                                class="col-12 py-2 border border-top-0 border-start-0 border-end-0 position  "
+                                :class="index == chatIndex? 'active': ''"
+                                @click="selectChat(index)"                    
+                                >
+                                    <div class="row  position-relative">
+                                        <!-- immagine avatar -->
+                                        <div class="col-auto ">
+                                            <img :src="contact.avatar"  alt="">
+                
+                                        </div>
+                
+                                        <!-- contact info -->
+                                        <div class="col-7 ">
+                                            <div class="row p-0">
+                                                <div>{{contact.name}}</div>
+                                                <div
+                                                class="my_small_text"
+                                                v-for="(message,index) in contact.messages"                                     >
+                                                    
+                                                    <span v-if="index == contact.messages.length -1">
+                                                        {{message.message}} 
+                                                                                              
+                                                    </span>                                       
+                                                    
+                                                    <!-- last message time -->
+                                                    <div 
+                                                    v-if="index == contact.messages.length-1" 
+                                                    class="my_small_text position-absolute top-0 end-0 pe-3">
+                                                        {{message.date}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            
+                                        </div>
+        
+        
+                                    </div>
+            
+                                    
+                                    
+            
+                                </div>
+
+                            </div>
+                            
+                           
+                        </div>
+
+
                     </div>
+    
     
                     
                 </div>
@@ -288,7 +325,7 @@
                                     
                                     <div class="dropdown position-absolute top-0 end-0 ">
                                         <button class="btn bg-transparent rounded-circle border border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-chevron-down"></i>
+                                            <i class="fa-solid fa-chevron-down opacity-25 "></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                           <li><a class="dropdown-item" >Info messaggio</a></li>
@@ -308,9 +345,9 @@
                             </div>
                 
                 
-                            <!-- input  -->
-                            <div class="row my_bg_primary m-0 p-3 align-items-center ">
-                                <div class="col-auto">
+                            <!-- input  -->                            
+                            <div class="row my_bg_primary m-0 p-2 align-items-center">
+                                <div class="col-auto d-flex ps-3">
                                     <i class="fa-regular fa-face-smile fs-4"></i>
                                 </div>
                                 <div class="col-auto flex-grow-1 ">
@@ -318,14 +355,14 @@
                                         <input
                                         v-model="messageToSend"
                                         type="text"
-                                        class="form-control"
+                                        class="form-control py-2"
                                         placeholder="Scrivi un messaggio"
                                         @keyup.enter="sendMessage(messageToSend)"
                                         >
                                     </div>
                 
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto d-flex pe-3">
                                     <i 
                                     v-if="messageToSend==''"
                                     class="fa-solid fa-microphone fs-4"></i>
