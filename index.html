@@ -23,8 +23,8 @@
     
 
 </head>
-<body   class="my_bg overflow-hidden ">
-    <div id="app" >
+<body class="my_bg">
+    <div id="app">
 
         <div id="accent-nav">
         </div>
@@ -32,15 +32,16 @@
 
         <!-- ----------------------------- splashpage ------------------------------ -->
 
-        <!-- <div id="splash"
-        :class="splash==false? 'splash-page':''">
+        <div id="splash"
+        :class="{'splash-page': splash==false}"
 
-            <img src="./img/bln-img.png" alt=""  class="position-absolute z-3 top-50 start-50 translate-middle">
-
-        </div> -->
+        >
+          <img src="./img/bln-img.png" alt=""  class="position-absolute z-3 top-50 start-50 translate-middle">
+        
+        </div>
         
         <!-- ------------------------------- pop-up -------------------------------- -->
-        <!-- <div id="pop-up"
+        <div id="pop-up"
         :class="popUp == false ? 'd-none' : 'd-flex'"
         class=""
         >
@@ -61,15 +62,20 @@
     
             </div>
     
-        </div> -->
+        </div>
     
         <!-- ----------------------------- add contact ----------------------------- -->
         <div id="new-contact" class="card position-absolute z-3 w-50 top-50 start-50 translate-middle my_shadow "
         v-show="popUpNewContact==true">
-            <h5 class="card-header my_bg_accent text-white">Crea nuovo contatto</h5>
+            <div class="card-header my_bg_accent text-white d-flex justify-content-between">
+                <h5 class="m-0" >Crea nuovo contatto span</h5>
+                <button @click="showAddContact()" type="button" class="btn-close shadow-none " aria-label="Close"></button>
+
+            </div>
+            
             <div class="card-body">
                 <h6 class="card-title">Inserisci nome</h6>
-                <input v-model="newName" type="text" class="form-control mb-3" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
+                <input v-model="newName" type="text" class="form-control mb-3 shadow-none " placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
                 <h6 class="card-title">Scegli l'avatar</h6>
 
                 <div class="mb-3"
@@ -145,7 +151,7 @@
                                             
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><button class="dropdown-item" @click="addingContact()">Aggiungi unovo contatto</button></li>
+                                            <li><button class="dropdown-item" @click="showAddContact()">Aggiungi unovo contatto</button></li>
                                         </ul>
                                     </div>
                                     
@@ -177,7 +183,6 @@
                             </div>
         
                         </div>
-
                             
         
                         <!-- input -->
@@ -255,7 +260,7 @@
                 <!-- ----------------------------------------------------------------------- -->
                 <div id="main" class=" d-md-block col-md-6 col-xl-8 p-0"
                 :class="smallChat==true?'small-chat':'d-none'" >
-                                        
+                                      
                     <div class="my_height"
                     id="main" 
                     v-for="(contact,index) in contacts" 
@@ -279,7 +284,9 @@
                                             <img :src="contact.avatar"  alt="">
                                         </div>
                                         <div class="col-auto p-0">
-                                            <div class="info-name">{{contact.name}}</div>
+                                            <div class="info-name">
+                                                {{contact.name}}
+                                            </div>
                                             <span 
                                             v-if="writing==true"
                                             class="my_small_text"
@@ -290,7 +297,7 @@
                                             <span 
                                             v-else
                                             v-for="(message,index) in contact.messages" 
-                                            v-show="index == contact.messages.length -1"                                              
+                                            v-show="index == contact.messages.length -1 && message.status=='received'"                                              
                                             class="my_small_text"
                                             >
                                                 Ultimo accesso alle 
@@ -359,7 +366,7 @@
                 
                 
                             <!-- input  -->                            
-                            <div class="row my_bg_primary m-0 p-2 align-items-center">
+                            <div class="row my_bg_primary m-0 p-2 align-items-center flex-nowrap ">
                                 <div class="col-auto d-flex ps-3">
                                     <i class="fa-regular fa-face-smile fs-4"></i>
                                 </div>
@@ -389,6 +396,11 @@
                         </div>
                     
                     
+                    </div>
+                    <div 
+                    class="my_bg_accent text-white p-5 h-100 border border-1 fw-bold "
+                    v-show="contacts.length==0" > 
+                        Non c'è niente da vedere qui!
                     </div>
     
                 </div>

@@ -160,7 +160,7 @@ createApp({
             }
         ],
 
-        phrases:["","La morte arriverà per tutti!","La guerra è in arrivo","Cresciamo in numero. Cresciamo in potenza.","Radunami un esercito degno di Mordor","Ti vedo!","È iniziato. L'est cadrà","E così sorgerà il regno di Angmar","Il tempo degli Elfi è finito. L'età degli Orchi è arrivata."],
+        phrases:["Non c'è luce, Stregone, che possa sconfiggere le tenebre!","La morte arriverà per tutti!","La guerra è in arrivo","Cresciamo in numero. Cresciamo in potenza.","Radunami un esercito degno di Mordor","Ti vedo!","È iniziato. L'est cadrà","E così sorgerà il regno di Angmar","Il tempo degli Elfi è finito. L'età degli Orchi è arrivata."],
 
 
         popUp: true,
@@ -201,7 +201,7 @@ createApp({
 
             date:"" ,
             message: 'Ok',
-            status: 'Received'
+            status: 'received'
 
         },
 
@@ -294,8 +294,9 @@ createApp({
                 
             }
         }
-        this.countMessagesAfterSend = []
+        this.countMessagesAfterSend = [];
 
+        console.log(this.answer)
         console.log(this.contacts)
         
     },
@@ -357,8 +358,13 @@ createApp({
 
         
     },
-    addingContact(){
-        this.popUpNewContact = true
+    showAddContact(){
+        if(this.popUpNewContact == false){
+            this.popUpNewContact = true;
+        } else {
+            this.popUpNewContact = false
+        }
+        this.indexAvatar = null
     },
     chooseAvatar(index){
         this.newContact.avatar = this.arrayUrlAvatar[index];
@@ -372,7 +378,7 @@ createApp({
         const randomPhrases = this.phrases[randomNum];
         this.answer.message = (randomPhrases)
 
-        console.log(this.answer.message)
+
     },
 
     //dismiss blu bar notification
@@ -398,8 +404,12 @@ createApp({
 
     //delete chat
     deleteChat(contactIndex){
-        this.contacts.splice(contactIndex, 1);
+        if (contactIndex === this.contacts.length-1){
+            this.chatIndex=contactIndex-1  
+        } 
 
+        this.contacts.splice(contactIndex, 1);
+            
     },
 
 
