@@ -26,8 +26,9 @@
 <body class="my_bg">
     <div id="app">
 
-        <div id="accent-nav">
+        <div id="accent-nav">            
         </div>
+        
 
 
         <!-- ----------------------------- splashpage ------------------------------ -->
@@ -75,7 +76,7 @@
             
             <div class="card-body">
                 <h6 class="card-title">Inserisci nome</h6>
-                <input v-model="newName" type="text" class="form-control mb-3 shadow-none " placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
+                <input v-model="newName" @keyup.enter="addContact()" type="text" class="form-control mb-3 shadow-none " placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
                 <h6 class="card-title">Scegli l'avatar</h6>
 
                 <div class="mb-3"
@@ -95,7 +96,7 @@
 
 
         
-
+        <!-- ------------------------------ main container ------------------------------ -->
         <div 
         :class="darkMode==true?'dark':''"
         class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" 
@@ -216,9 +217,12 @@
                                                 <div>{{contact.name}}</div>
                                                 <div
                                                 class="my_small_text"
-                                                v-for="(message,index) in contact.messages"                                     >
+                                                v-for="(message,index) in contact.messages"
+                                                >
                                                     
-                                                    <span v-if="index == contact.messages.length -1">
+                                                    <span 
+                                                    v-if="index == contact.messages.length -1"
+                                                    >
                                                         {{message.message}} 
                                                                                               
                                                     </span>                                       
@@ -226,7 +230,8 @@
                                                     <!-- last message time -->
                                                     <div 
                                                     v-if="index == contact.messages.length-1" 
-                                                    class="my_small_text position-absolute top-0 end-0 pe-3">
+                                                    class="my_small_text position-absolute top-0 end-0 pe-3"
+                                                    >
                                                         {{message.date}}
                                                     </div>
                                                 </div>
@@ -258,18 +263,21 @@
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                Main Chat                                -->
                 <!-- ----------------------------------------------------------------------- -->
-                <div id="main" class=" d-md-block col-md-6 col-xl-8 p-0"
-                :class="smallChat==true?'small-chat':'d-none'" >
+                <div id="main" 
+                class=" d-md-block col-md-6 col-xl-8 p-0"
+                :class="smallChat==true?'small-chat':'d-none'" 
+                >
                                       
                     <div class="my_height"
-                    id="main" 
                     v-for="(contact,index) in contacts" 
                     v-show="index==chatIndex"          
                     >
                         <div class="d-flex flex-column my_height">
     
                             <!-- header -->
-                            <div id="header-chat" class="row justify-content-between align-items-center m-0 py-2 my_bg_primary">
+                            <div 
+                            id="header-chat" 
+                            class="row justify-content-between align-items-center m-0 py-2 my_bg_primary">
                                 
                                 <div class="col-auto ">
                                     <div class="row align-items-center ">
@@ -297,11 +305,12 @@
                                             <span 
                                             v-else
                                             v-for="(message,index) in contact.messages" 
-                                            v-show="index == contact.messages.length -1 && message.status=='received'"                                              
+                                            v-show="index == contact.messages.length -1"                                              
                                             class="my_small_text"
                                             >
-                                                Ultimo accesso alle 
-                                                <span>{{message.date}}</span>
+                                                Ultimo accesso 
+                                                <span v-if="message.status=='received'">alle {{message.date}}</span>
+                                                <span v-else>ieri</span>
                                                 
                                             </span>
                                             
@@ -334,9 +343,9 @@
                 
                             <!-- chat -->
                             <div id="main-chat"
-                            class="d-flex flex-column flex-grow-1 overflow-auto p-5"                 
+                            class="d-flex flex-column flex-grow-1 overflow-auto p-5"                  
                             >
-                                <div                                
+                                <div                  
                                 v-for="(message,index2) in contact.messages"               
                                 :class="message.status=='sent'? 'sent' : 'received'"
                                 class="col-12 p-3 pe-4 mb-3 rounded-3 position-relative "
@@ -399,7 +408,8 @@
                     </div>
                     <div 
                     class="my_bg_accent text-white p-5 h-100 border border-1 fw-bold "
-                    v-show="contacts.length==0" > 
+                    v-show="contacts.length==0" 
+                    > 
                         Non c'è niente da vedere qui!
                     </div>
     

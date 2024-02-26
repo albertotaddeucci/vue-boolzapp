@@ -160,17 +160,18 @@ createApp({
             }
         ],
 
+        //array phrases (sauron)
         phrases:["Non c'è luce, Stregone, che possa sconfiggere le tenebre!","La morte arriverà per tutti!","La guerra è in arrivo","Cresciamo in numero. Cresciamo in potenza.","Radunami un esercito degno di Mordor","Ti vedo!","È iniziato. L'est cadrà","E così sorgerà il regno di Angmar","Il tempo degli Elfi è finito. L'età degli Orchi è arrivata."],
 
-
+        //popup welcome
         popUp: true,
-
-        darkMode: false,
-
+        //splah-page
         splash: true,
-
+        //darkmode
+        darkMode: false,
+        //chat responsive
         smallChat: false,
-
+        //on/off blu section
         notDesktop: false,
 
         
@@ -189,6 +190,7 @@ createApp({
         writing: false,   
         text:"Sta scrivendo...",   
        
+        //object to send
         myMessage: {
                         
             date: "",
@@ -197,6 +199,7 @@ createApp({
 
         },
 
+        //object to receive
         answer: {
 
             date:"" ,
@@ -206,6 +209,7 @@ createApp({
         },
 
 
+        //obect new contact to add to contacts
         newContact: {
             name: '',
             avatar: '',
@@ -213,26 +217,25 @@ createApp({
             messages: [],
 
         },
-
-        newName: "",
+        //consts for new contact to add
+        newName: "",        
         popUpNewContact: false,
         indexAvatar: null,
 
     }
   },
 
-
   methods: {
     selectChat(index){
-        this.chatIndex = index
-        this.popUp = false
-        this.writing = false
+        this.chatIndex = index;
+        this.popUp = false;
+        this.writing = false;
 
-
+        //for setting main chat to small for responsive
         if(window.innerWidth<768){
-            this.smallChat = true
+            this.smallChat = true;
         } else{
-            this.smallChat = false
+            this.smallChat = false;
         }
 
 
@@ -240,9 +243,8 @@ createApp({
     //send messages
     sendMessage(messageToSend){
 
-        console.log(this.newContact)
-        
-        this.countMessages = []
+
+        this.countMessages = [];
         
         this.contacts.forEach(el=>{
             this.countMessages.push(el.messages.length);
@@ -252,7 +254,7 @@ createApp({
             
             this.myMessage.message = messageToSend;
             
-            this.myMessage.date = this.getTime()
+            this.myMessage.date = this.getTime();
             
             this.contacts[this.chatIndex].messages.push({...this.myMessage});
             
@@ -260,13 +262,13 @@ createApp({
             
             setTimeout(this.riceveAnswer,1000);
             
-            this.writing = true
+            this.writing = true;
             
         }
         
         
     },
-
+    
     //response
     riceveAnswer(){
         
@@ -280,10 +282,9 @@ createApp({
         for( let i=0; i<this.countMessages.length; i++){
             if(this.countMessages[i] != this.countMessagesAfterSend[i]){
                 
-                if (i==0){
-    
-                    this.randomPh()
-    
+                //random response(sauron)
+                if (i==0){                       
+                    this.randomPh()    
                 }
 
                 this.answer.date = this.getTime()
@@ -292,15 +293,12 @@ createApp({
                 this.text = "Online";
 
                 
+                
             }
         }
         this.countMessagesAfterSend = [];
-
-        console.log(this.answer)
-        console.log(this.contacts)
         
-    },
-       
+    },      
     
 
     online(){
@@ -378,7 +376,6 @@ createApp({
         const randomPhrases = this.phrases[randomNum];
         this.answer.message = (randomPhrases)
 
-
     },
 
     //dismiss blu bar notification
@@ -386,8 +383,6 @@ createApp({
         this.notDesktop = true
 
     },
-
-
 
 
 
@@ -436,7 +431,7 @@ mounted(){
         ;
     });
     
-    //chagne img sauron
+    //change img sauron
     this.contacts[0].avatar = "./img/sauron.png"
 
 
@@ -451,18 +446,11 @@ mounted(){
         });
     });
 
+    //timeer splash page
     setTimeout(this.splashOn,1000)
-
-    this.randomPh()
-
-
-
-    // console.log(this.prova)
-
-
     
 
-    
+
 
   }
 }).mount('#app')
