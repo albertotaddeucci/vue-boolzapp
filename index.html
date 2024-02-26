@@ -19,6 +19,9 @@
 
     <!-- --------------------------------- vue --------------------------------- -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    
+
 </head>
 <body   class="my_bg overflow-hidden ">
     <div id="app" >
@@ -29,15 +32,15 @@
 
         <!-- ----------------------------- splashpage ------------------------------ -->
 
-        <div id="splash"
+        <!-- <div id="splash"
         :class="splash==false? 'splash-page':''">
 
             <img src="./img/bln-img.png" alt=""  class="position-absolute z-3 top-50 start-50 translate-middle">
 
-        </div>
+        </div> -->
         
         <!-- ------------------------------- pop-up -------------------------------- -->
-        <div id="pop-up"
+        <!-- <div id="pop-up"
         :class="popUp == false ? 'd-none' : 'd-flex'"
         class=""
         >
@@ -58,7 +61,7 @@
     
             </div>
     
-        </div>
+        </div> -->
     
         <!-- ----------------------------- add contact ----------------------------- -->
         <div id="new-contact" class="card position-absolute z-3 w-50 top-50 start-50 translate-middle my_shadow "
@@ -84,6 +87,9 @@
             </div>
         </div>
 
+
+        
+
         <div 
         :class="darkMode==true?'dark':''"
         class="container vh-100 py-5 overflow-hidden my_wrapper position-relative" 
@@ -96,11 +102,11 @@
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                  Aside                                  -->
                 <!-- ----------------------------------------------------------------------- -->
-                <div id="aside" class="col-12 col-md-6 col-xl-4 ">
+                <div id="aside" class="col-12 col-md-6 col-xl-4 overflow-hidden ">
 
-                    <div class="row my_height align-content-start overflow-hidden ">
+                    <div class="row my_height align-content-start flex-column flex-nowrap ">
                         <!-- header -->
-                        <div id="header-aside" class="col-12 justify-content-between py-2 my_bg_primary align-items-center">
+                        <div id="header-aside" class="col-12 justify-content-between py-2 my_bg_primary align-items-center border-end">
                             <div class="row justify-content-between ">
                                 <!-- avatar & text -->
                                 <div class="col-auto">
@@ -149,7 +155,12 @@
                         </div>
         
                         <!-- blu section -->
-                        <div id="activate" class="col-12 py-3 my_bg_secondary">
+                        <div 
+                        id="activate" 
+                        class="col-12 py-3 my_bg_secondary"
+                        v-show="notDesktop==false"
+                        @click="dismiss()"
+                        >
 
                             <div class="row align-items-center ">
                                 <div class="col-3 text-center">
@@ -159,24 +170,26 @@
                                 </div>
                                 <div class="col-9">
                                     <div>Ricevi notifiche di nuovi messaggi</div>
-                                    <a href="">Attiva notifiche desktop</a>
+                                    <a href="#" >Attiva notifiche desktop</a>
             
                                 </div>
 
                             </div>
         
                         </div>
+
+                            
         
                         <!-- input -->
-                        <div class="col-12 p-2 my_bg_primary">
+                        <div class="col-12 p-2 my_bg_primary border-bottom ">
                             <div class="input-group">
                                 <span class="input-group-text search_width" id="basic-addon1"><i class="fa-solid fa-magnifying-glass m-auto my_color_primary"></i></span>
-                                <input v-model="inputSearch" @keyup="search(inputSearch)" type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Cerca chat" aria-describedby="basic-addon1">
+                                <input v-model="inputSearch" @keyup="search(inputSearch)" type="text" class="form-control border shadow-none " placeholder="Cerca o inizia una nuova chat" aria-label="Cerca chat" aria-describedby="basic-addon1">
                             </div>
                         </div>
         
                         <!-- contact list -->
-                        <div id="chats" class="col-12 overflow-y-auto my_height_list" >
+                        <div id="chats" class="col-12 overflow-auto flex-grow-1 flex-shrink-1" >
                             <div class="row align-content-start">
                                 <div 
                                 v-for="(contact,index) in contacts" 
@@ -319,7 +332,7 @@
                                 <div                                
                                 v-for="(message,index2) in contact.messages"               
                                 :class="message.status=='sent'? 'sent' : 'received'"
-                                class="col-12 p-3 mb-3 rounded-3 position-relative "
+                                class="col-12 p-3 pe-4 mb-3 rounded-3 position-relative "
                                 >
                                     {{message.message}}
                                     
@@ -355,7 +368,7 @@
                                         <input
                                         v-model="messageToSend"
                                         type="text"
-                                        class="form-control py-2"
+                                        class="form-control py-2 shadow-none"
                                         placeholder="Scrivi un messaggio"
                                         @keyup.enter="sendMessage(messageToSend)"
                                         >

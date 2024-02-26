@@ -3,6 +3,7 @@
 body{
     font-family: sans-serif;
     position: relative;
+
 }
 
 /* --------------------------------- colors --------------------------------- */
@@ -50,10 +51,6 @@ body{
 
 .my_height{
     height: calc(100vh - 6rem);
-}
-
-.my_height_list{
-    height: calc(100vh - 6rem - 66px - 103px - 54px)
 }
 
 .my_wrapper{

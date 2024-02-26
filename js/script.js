@@ -7,25 +7,16 @@ createApp({
     return {
         contacts: [
             {
-                name: 'Michele',
+                name: 'Sauron',
                 avatar: './img/avatar_1.jpg',
                 visible: true,
                 messages: [
                     {
                         date: '10/01/2020 15:30:55',
-                        message: 'Hai portato a spasso il cane?',
+                        message: 'Ritorna nel vuoto da cui tu sei venuto!',
                         status: 'sent'
                     },
-                    {
-                        date: '10/01/2020 15:50:00',
-                        message: 'Ricordati di stendere i panni',
-                        status: 'sent'
-                    },
-                    {
-                        date: '10/01/2020 16:15:22',
-                        message: 'Tutto fatto!',
-                        status: 'received'
-                    }
+                    
                 ],
             },
             {
@@ -169,6 +160,9 @@ createApp({
             }
         ],
 
+        phrases:["","La morte arriverà per tutti!","La guerra è in arrivo","Cresciamo in numero. Cresciamo in potenza.","Radunami un esercito degno di Mordor","Ti vedo!","È iniziato. L'est cadrà","E così sorgerà il regno di Angmar","Il tempo degli Elfi è finito. L'età degli Orchi è arrivata."],
+
+
         popUp: true,
 
         darkMode: false,
@@ -176,6 +170,8 @@ createApp({
         splash: true,
 
         smallChat: false,
+
+        notDesktop: false,
 
         
         //search contact
@@ -209,6 +205,7 @@ createApp({
 
         },
 
+
         newContact: {
             name: '',
             avatar: '',
@@ -231,7 +228,6 @@ createApp({
         this.popUp = false
         this.writing = false
 
-        console.dir(window.screen)
 
         if(window.innerWidth<768){
             this.smallChat = true
@@ -241,66 +237,85 @@ createApp({
 
 
     },
-    goBack(){
-        this.smallChat = false
-    },
-    riceveAnswer(){
-               
-        
-        this.contacts.forEach(el=>{
-            this.countMessagesAfterSend.push(el.messages.length);
-        })
-
-        console.log(this.countMessagesAfterSend)
-
-        for( let i=0; i<this.countMessages.length; i++){
-            if(this.countMessages[i] != this.countMessagesAfterSend[i]){
-
-                this.answer.date = this.getTime()
-                this.contacts[i].messages.push({...this.answer});
-                setTimeout(this.online,1000);
-                this.text = "Online";
-                
-            }
-        }
-        this.countMessagesAfterSend = []
-        
-    },
-    online(){
-        this.writing = false;
-        this.text = "Sta scrivendo..."
-    },
+    //send messages
     sendMessage(messageToSend){
 
+        console.log(this.newContact)
+        
         this.countMessages = []
         
         this.contacts.forEach(el=>{
             this.countMessages.push(el.messages.length);
         })
-
+        
         if(messageToSend.trim() != ""){
-
+            
             this.myMessage.message = messageToSend;
-
+            
             this.myMessage.date = this.getTime()
-    
+            
             this.contacts[this.chatIndex].messages.push({...this.myMessage});
-    
+            
             this.messageToSend = "";
-    
+            
             setTimeout(this.riceveAnswer,1000);
-
+            
             this.writing = true
             
         }
         
+        
+    },
 
+    //response
+    riceveAnswer(){
+        
+        this.answer.message = "Ok"
+                
+        this.contacts.forEach(el=>{
+            this.countMessagesAfterSend.push(el.messages.length);
+        })
+
+        //check answer same chat
+        for( let i=0; i<this.countMessages.length; i++){
+            if(this.countMessages[i] != this.countMessagesAfterSend[i]){
+                
+                if (i==0){
+    
+                    this.randomPh()
+    
+                }
+
+                this.answer.date = this.getTime()
+                this.contacts[i].messages.push({...this.answer});
+                setTimeout(this.online,1000);
+                this.text = "Online";
+
+                
+            }
+        }
+        this.countMessagesAfterSend = []
+
+        console.log(this.contacts)
+        
+    },
+       
+    
+
+    online(){
+        this.writing = false;
+        this.text = "Sta scrivendo..."
     },
     getTime(){
         const date = DateTime.now().toFormat("HH:mm")
         return date
 
     },
+    goBack(){
+        this.smallChat = false
+    },
+
+    //search in aside
     search(input){
         this.elementsFound = []
         this.notFound = false
@@ -317,39 +332,53 @@ createApp({
         });
     },
 
-    chooseAvatar(index){
-        this.newContact.avatar = this.contacts[index].avatar;
-        this.indexAvatar = index
-        
-    },
     
-    addContact(){
+    //for adding a contact
+    addContact(){       
         
         this.newContact.name = this.newName;
-
-        if(this.newName.trim() != "" && this.newContact.avatar != ""){
-
+        
+        if(this.newName.trim() != "" && this.newContact.avatar != ""){            
+          
             this.contacts.push({...this.newContact});
-            
-            this.popUpNewContact = false
-            
+            this.newContact.messages = []; 
+            this.popUpNewContact = false  ;          
             this.newName="";
-            this.newContact.avatar=""
+            this.newContact.avatar="";
             this.choosedAvatar=false
         }
-
-
+        
         
         this.countMessages = []
-
+        
         this.contacts.forEach(el=>{
             this.countMessages.push(el.messages.length);
         })
 
+        
     },
-
     addingContact(){
         this.popUpNewContact = true
+    },
+    chooseAvatar(index){
+        this.newContact.avatar = this.arrayUrlAvatar[index];
+        this.indexAvatar = index
+        
+    },
+    
+    //random response (Sauron)
+    randomPh(){
+        const randomNum = Math.floor(Math.random() * this.phrases.length);
+        const randomPhrases = this.phrases[randomNum];
+        this.answer.message = (randomPhrases)
+
+        console.log(this.answer.message)
+    },
+
+    //dismiss blu bar notification
+    dismiss(){
+        this.notDesktop = true
+
     },
 
 
@@ -382,6 +411,8 @@ createApp({
             this.darkMode = false
         }
     },
+
+    //splash-page
     splashOn(){
         this.splash = false
     }
@@ -389,11 +420,14 @@ createApp({
 },
 mounted(){
     
-    
+    //array img list for adding a contact
     this.contacts.forEach(contact => {
         this.arrayUrlAvatar.push(contact.avatar)
         ;
     });
+    
+    //chagne img sauron
+    this.contacts[0].avatar = "./img/sauron.png"
 
 
     //time in contact list
@@ -408,6 +442,16 @@ mounted(){
     });
 
     setTimeout(this.splashOn,1000)
+
+    this.randomPh()
+
+
+
+    // console.log(this.prova)
+
+
+    
+
     
 
   }
